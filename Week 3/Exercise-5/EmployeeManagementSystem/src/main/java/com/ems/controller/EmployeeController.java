@@ -20,13 +20,11 @@ public class EmployeeController {
 
     @GetMapping
     public List<Employee> getAllEmployees() {
-        List<Employee> employees = employeeRepository.findAll();
-        System.out.println("===> Number of Employees found: "+employees.size());
-        return employees;
+        return employeeRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id) {
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
         Optional<Employee> employee = employeeRepository.findById(id);
         return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -37,7 +35,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee employeeDetails) {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails) {
         Optional<Employee> employee = employeeRepository.findById(id);
 
         if (employee.isPresent()) {
@@ -53,7 +51,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         if (employeeRepository.existsById(id)) {
             employeeRepository.deleteById(id);
             return ResponseEntity.noContent().build();

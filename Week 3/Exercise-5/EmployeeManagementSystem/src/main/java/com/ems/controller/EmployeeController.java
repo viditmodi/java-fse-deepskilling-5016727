@@ -29,6 +29,17 @@ public class EmployeeController {
         return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/email")
+    public Employee getEmployeeByEmail(@RequestParam String email){
+        Employee employee = employeeRepository.findByEmail(email);
+        return employee;
+    }
+
+    @GetMapping("/name")
+    public List<Employee> getEmployeeByName(@RequestParam String name){
+        List<Employee> employee = employeeRepository.findByName(name);
+        return employee;
+    }
     @PostMapping
     public Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);

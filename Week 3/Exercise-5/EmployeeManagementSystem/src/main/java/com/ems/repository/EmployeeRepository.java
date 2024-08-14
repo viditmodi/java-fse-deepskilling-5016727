@@ -14,15 +14,14 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
     List<Employee> findByDepartment(Department dept);
     // Employee findByEmail(String email);
 
-    @Query("SELECT e FROM Employee e WHERE e.email = :email")
+    @Query(name= "Employee.findByEmailNamedQuery")
     Employee findByEmail(@Param("email") String email);
-
-    // Custom Query using Native SQL
-    @Query(value = "SELECT * FROM employees e WHERE e.name = :name", nativeQuery = true)
+    
+    @Query(name= "Employee.findByNameNamedQuery")
     List<Employee> findByName(@Param("name") String name);
 
 
-    List<Employee> findByNameNamedQuery(@Param("name") String name);
+    // List<Employee> findByNameNamedQuery(@Param("name") String name);
 
-    List<Employee> findAllNamedQuery();
+    // List<Employee> findAllNamedQuery();
 }

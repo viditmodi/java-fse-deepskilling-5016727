@@ -1,5 +1,6 @@
 package com.ems.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,54 +18,24 @@ import lombok.Data;
 @NamedQueries({
     @NamedQuery(name = "Employee.findByNameNamedQuery", 
                 query = "SELECT e FROM Employee e WHERE e.name = :name"),
-    @NamedQuery(name = "Employee.findAllNamedQuery", 
-                query = "SELECT e FROM Employee e")
+    @NamedQuery(name = "Employee.findByEmailNamedQuery", 
+                query = "SELECT e FROM Employee e WHERE e.email = :email")
 })
 @Data
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-	private String email;
+	@Column(name = "employee_id")
+    private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+	@Column(name = "employee_name")
+    private String name;
+	@Column(name = "employee_email")
+	private String email;
+	
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;
     
-    
-    
-    public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department dept) {
-		this.department = dept;
-	}
-
 
 }

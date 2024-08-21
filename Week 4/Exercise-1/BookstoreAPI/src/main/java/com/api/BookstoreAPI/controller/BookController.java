@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.BookstoreAPI.model.Book;
@@ -30,6 +31,10 @@ public class BookController {
     @GetMapping("/{id}")
     public Optional<Book> getBookByID(@PathVariable int id){
         return booksService.getBookByID(id);
+    }
+    @GetMapping("/filter")
+    public List<Book> getBookByQuery(@RequestParam("type") String type, @RequestParam("query") String query){
+        return booksService.getBookByQuery(type, query);
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package com.api.BookstoreAPI.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,16 @@ public class BooksService {
     public Book createNewBook(Book book){
         Book savedBook = bookRepository.save(book);
         return savedBook;
+    }
+    public List<Book> getBookByQuery(String type, String query){
+        List<Book> books = new ArrayList<Book>();
+        if(type.equals("title")){
+            books = bookRepository.getBooksByTitle(query);
+        }
+        else if(type.equals("author")){
+            books = bookRepository.getBooksByAuthor(query);
+        }
+        return books;
     }
 
     public ResponseEntity<Book> updateBook(int id, Book book){
